@@ -1,0 +1,7 @@
+google-generativeai
+langchain
+streamlit
+python-dotenv
+PyPDF2
+pandas
+langchain_community
