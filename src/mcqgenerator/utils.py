@@ -24,9 +24,8 @@ def read_file(file):
     
 
 def get_table(quiz):
-
     try:
-    # Parse the questions, choices, and answers
+        # Parse the questions, choices, and answers
         questions = []
         choices = []
         answers = []
@@ -47,29 +46,27 @@ def get_table(quiz):
             else:
                 i += 1
 
-
         # Parse the answers
-        answers_section = lines.index("The answers are:") + 1
-        for line in lines[answers_section:]:
-            if line.strip():
-                q_num, answer = line.strip().split(". ")
-                answers.append(answer)
+        if "The answers are:" in lines:
+            answers_section = lines.index("The correct answers are:") + 1
+            for line in lines[answers_section:]:
+                if line.strip():
+                    q_num, answer = line.strip().split(". ")
+                    answers.append(answer)
+        else:
+            raise ValueError("'The answers are:' section not found in the text")
 
-        questions=questions[:5]
-        choices=choices[:5]
-        
-        data={
-            "MCQ":questions,
-            "Choices":choices,
-            "Answers":answers
+        questions = questions[:5]
+        choices = choices[:5]
+
+        data = {
+            "MCQ": questions,
+            "Choices": choices,
+            "Answers": answers
         }
 
-        return [data]
-    
+        return data
+
     except Exception as e:
         traceback.print_exception(type(e), e, e.__traceback__)
         return False
-
-
-
-
