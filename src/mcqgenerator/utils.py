@@ -47,12 +47,23 @@ def get_table(quiz):
                 i += 1
 
         # Parse the answers
-        if "The answers are:" in lines:
+        if "The correct answers are:" in lines:
             answers_section = lines.index("The correct answers are:") + 1
             for line in lines[answers_section:]:
                 if line.strip():
-                    q_num, answer = line.strip().split(". ")
-                    answers.append(answer)
+                    parts = line.strip().split(". ")
+                    if len(parts) == 2:  # Ensure the split was successful
+                        q_num, answer = parts
+                        answers.append(answer)
+
+        elif "Answers:" in lines:
+            answers_section = lines.index("TAnswers:") + 1
+            for line in lines[answers_section:]:
+                if line.strip():
+                    parts = line.strip().split(". ")
+                    if len(parts) == 2:  # Ensure the split was successful
+                        q_num, answer = parts
+                        answers.append(answer)
         else:
             raise ValueError("'The answers are:' section not found in the text")
 

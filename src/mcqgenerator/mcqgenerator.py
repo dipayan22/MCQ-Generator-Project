@@ -20,7 +20,7 @@ load_dotenv()
 
 google_api_key=os.getenv("GOOGLE_API_KEY")
 
-llm=ChatGooglePalm(model_name="models/chat-bison-001",google_api_key=google_api_key,temperature=0.7)
+llm=ChatGooglePalm(google_api_key=google_api_key,temperature=0.3)
 
 TEMPLATE="""
 Text:{text}
